@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000
 
 app.use(morgan('combined'))
 
-app.get('/', (req, res) => res.send(`Hello, I am ${hostname}!`))
+app.get('/', (req, res) => res.send(`<div>Hello, I am <h1>${hostname}!</h1></div>`))
 
 app.listen(port, (err) => {
   if (err) {
