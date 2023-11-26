@@ -21,3 +21,7 @@ docker stop hello-hostname
 docker start hello-hostname
 
 docker rm hello-hostname
+
+docker pull ghcr.io/aldinkapetanovic/hello-hostname:latest
+
+https://github.com/aldinkapetanovic/hello-hostname/pkgs/container/hello-hostname
