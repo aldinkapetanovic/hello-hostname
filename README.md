@@ -12,7 +12,7 @@ docker images -a
 
 docker run -d -p 3000:3000 --name hello-hostname hello-hostname
 
-docker run --name hello-hostname -v /tmp/hello-hostname/logs:/app/logs -p 3000:3000 hello-hostname
+docker run -d --name hello-hostname-with-volume -v /tmp/hello-hostname/logs:/logs -p 3000:3000 hello-hostname
 
 
 
