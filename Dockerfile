@@ -1,6 +1,6 @@
-FROM node:latest
+FROM node:alpine
 
-RUN mkdir /app
+RUN mkdir -p /app
 
 WORKDIR /app
 
@@ -11,10 +11,10 @@ RUN npm install
 COPY ./ .
 
 # Create a directory for logs
-RUN mkdir /app/logs
+RUN mkdir -p /logs
 
 # Set up the volume for logs
-VOLUME [ "/app/logs" ]
+VOLUME [ "/logs" ]
 
 EXPOSE 3000
 

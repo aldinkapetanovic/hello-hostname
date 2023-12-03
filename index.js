@@ -2,16 +2,9 @@ import express from 'express'
 import morgan from 'morgan'
 import { hostname as _hostname } from "os"
 import fs from 'fs'
-import path from 'path'
 
-const __filename = new URL(import.meta.url).pathname;
-const __dirname = path.dirname(__filename);
-
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs/access.log'), { flags: 'a' });
-
-
-// const accessLogStream = createWriteStream('access.log');
-const errorLogStream = fs.createWriteStream('logs/error.log');
+const accessLogStream = fs.createWriteStream('/logs/access.log', { flags: 'a' });
+const errorLogStream = fs.createWriteStream('/logs/error.log');
 
 // Example: Writing logs to the streams
 accessLogStream.write('This is an access log entry\n');
@@ -23,7 +16,6 @@ try {
 } catch (error) {
   errorLogStream.write(`Error: ${error.message}\n`);
 }
-
 
 const app = express()
 const hostname = _hostname()
