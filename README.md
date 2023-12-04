@@ -1,4 +1,4 @@
-docker-hello-hostname
+# docker-hello-hostname
 
 npm install
 
@@ -12,8 +12,7 @@ docker images -a
 
 docker run -d -p 3000:3000 --name hello-hostname hello-hostname
 
-docker run -d --name hello-hostname-with-volume -v /tmp/hello-hostname/logs:/logs -p 3000:3000 hello-hostname
-
+docker run -d -p 3000:3000 --name hello-hostname-with-volume -v /tmp/hello-hostname/logs:/logs hello-hostname
 
 
 docker ps -a

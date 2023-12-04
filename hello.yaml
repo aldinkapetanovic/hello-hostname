@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello
+spec:
+  containers:
+  - name: hello
+    image: ghcr.io/aldinkapetanovic/hello-hostname
+    volumeMounts:
+    - name: logs
+      mountPath: /logs
+  volumes:
+  - name: logs
+    emptyDir: {}
+
