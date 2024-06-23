@@ -1,21 +1,16 @@
 FROM node:alpine
 
-RUN mkdir -p /app
-
 WORKDIR /app
 
-COPY package.json .
+COPY package*.json .
 
-RUN npm install
+RUN npm install --ignore-scripts
 
-COPY ./ .
-
-# Create a directory for logs
-RUN mkdir -p /logs
-
-# Set up the volume for logs
-VOLUME [ "/logs" ]
+COPY index.js .
 
 EXPOSE 3000
 
+USER node
+
 CMD ["npm","start"]
+

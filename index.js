@@ -1,48 +1,71 @@
 import express from 'express'
 import morgan from 'morgan'
 import { hostname as _hostname } from "os"
-import fs from 'fs'
-
-const accessLogStream = fs.createWriteStream('/logs/access.log', { flags: 'a' });
-const errorLogStream = fs.createWriteStream('/logs/error.log');
-
-// Example: Writing logs to the streams
-accessLogStream.write('This is an access log entry\n');
-
-// Example: Simulating an error and writing to the error log
-try {
-  // Code that may throw an error
-  throw new Error('Simulated error');
-} catch (error) {
-  errorLogStream.write(`Error: ${error.message}\n`);
-}
 
 const app = express()
 const hostname = _hostname()
 const port = process.env.PORT || 3000
 
-app.use(morgan('combined', { stream: accessLogStream }))
+app.disable("x-powered-by")
+app.use(morgan('combined'))
 
-app.get('/', (req, res) => res.send(`<!DOCTYPE html>
-<html lang="en">
+app.get('/', (req, res) => {
+    const nodeVersion = process.version;
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${hostname}</title>
-</head>
+    res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
 
-<body>
-    <div>Hello, I am <h1>${hostname}!</h1>
-    </div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${hostname}</title>
 
-</html>`))
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                height: 100vh;
+                background-color: #f8f9fa;
+            }
+
+            h1 {
+                font-size: 5vw;
+                color: #007bff;
+                margin: 0;
+            }
+
+            p {
+                font-size: 1.5em;
+                margin-top: 10px;
+                color: #6c757d;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <h1>${hostname} 🐳</h1>
+            <p>Hello, I am your Docker container! 🌊</p>
+            <p>Node.js Version: ${nodeVersion} 🚀</p>
+        </div>
+    </body>
+
+    </html>
+    `);
+});
+
 
 app.listen(port, (err) => {
-  if (err) {
-    console.log('Error::', err)
-  }
-  console.log(`App listening on port ${port}`)
+    if (err) {
+        console.log('Error::', err)
+    }
+    console.log(`App listening on port ${port}`)
 });
