@@ -1,0 +1,29 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main  # replace with your main branch name
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        env:
+          DOCKER_BUILDKIT: 1
+        run: |
+          DOCKER_IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_SHA:0:7}"
+          docker build -t "$DOCKER_IMAGE_NAME" .
+          docker push "$DOCKER_IMAGE_NAME"
