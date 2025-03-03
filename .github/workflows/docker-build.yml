@@ -24,6 +24,7 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
         run: |
-          DOCKER_IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_SHA:0:7}"
-          docker build -t "$DOCKER_IMAGE_NAME" .
+          SHORT_SHA="${GITHUB_SHA:0:7}"
+          DOCKER_IMAGE_NAME="ghcr.io/${GITHUB_REPOSITORY}:${SHORT_SHA}"
+          docker build --build-arg SHORT_SHA="$SHORT_SHA" -t "$DOCKER_IMAGE_NAME" .
           docker push "$DOCKER_IMAGE_NAME"

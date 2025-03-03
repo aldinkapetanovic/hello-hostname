@@ -5,6 +5,8 @@ import { hostname as _hostname } from "os"
 const app = express()
 const hostname = _hostname()
 const port = process.env.PORT || 3000
+// const short_sha = process.env.SHORT_SHA
+const short_sha = process.env.SHORT_SHA.slice(0, 7)
 
 app.disable("x-powered-by")
 app.use(morgan('combined'))
@@ -47,14 +49,23 @@ app.get('/', (req, res) => {
                 margin-top: 10px;
                 color: #6c757d;
             }
+
+            .version {
+                font-weight: 500;
+                background-color: #6c757d;
+                color: white;
+                padding: 4px 4px;
+                border-radius: 4px;
+            }
         </style>
     </head>
 
     <body>
         <div>
-            <h1>${hostname} 🐳</h1>
-            <p>Hello, I am your Docker container! 🌊</p>
-            <p>Node.js Version: ${nodeVersion} 🚀</p>
+            <h1>${hostname} 🌐</h1>
+            <p>Hello, I am your Docker container! 🐳</p>
+            <p>Node.js Version: <span class="version">${nodeVersion}</span> 🚀</p>
+            <p>Commit: <span class="version">${short_sha}</span> #️⃣</p>
         </div>
     </body>
 
