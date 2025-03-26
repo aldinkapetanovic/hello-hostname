@@ -64,7 +64,7 @@ app.get('/', (req, res) => {
         <div>
             <h1>${hostname} 🌐</h1>
             <p>Hello, I am your Docker container! 🐳</p>
-            <p>Node.js Version: <span class="version">${nodeVersion}</span> 🚀</p>
+            <p>Node.js Version: <span class="highlight">${nodeVersion}</span> 🚀</p>
             <p>Commit: <span class="highlight">${short_sha}</span> #️⃣</p>
         </div>
     </body>
