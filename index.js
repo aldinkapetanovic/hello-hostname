@@ -17,20 +17,20 @@ const short_sha = process.env.SHORT_SHA.slice(0, 7)
 // spec:
 //   externalTrafficPolicy: Local
 
-// app.enable('trust proxy');
+app.enable('trust proxy');
 
 app.disable("x-powered-by")
 app.use(morgan('combined'))
 
 app.use((req, res, next) => {
-    console.log('Check if the X-Forwarded-For and X-Real-IP are passed ->', req.headers);
+    // console.log('Check if the X-Forwarded-For and X-Real-IP are passed ->', req.headers);
     next();
 });
 
 app.get('/', (req, res) => {
 
     const clientIp = requestIp.getClientIp(req);
-    console.log(`request-ip -> Your IP Address is ${clientIp}.`);
+    // console.log(`request-ip -> Your IP Address is ${clientIp}.`);
 
     const nodeVersion = process.version;
 
