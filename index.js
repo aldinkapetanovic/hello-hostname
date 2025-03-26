@@ -1,6 +1,7 @@
 import express from 'express'
 import morgan from 'morgan'
 import { hostname as _hostname } from "os"
+import requestIp from 'request-ip';
 
 const app = express()
 const hostname = _hostname()
@@ -8,10 +9,29 @@ const port = process.env.PORT || 3000
 // const short_sha = process.env.SHORT_SHA
 const short_sha = process.env.SHORT_SHA.slice(0, 7)
 
+
+// kind: Service
+// metadata:
+//   name: ingress-nginx-controller
+//   namespace: ingress-nginx
+// spec:
+//   externalTrafficPolicy: Local
+
+// app.enable('trust proxy');
+
 app.disable("x-powered-by")
 app.use(morgan('combined'))
 
+app.use((req, res, next) => {
+    console.log('Check if the X-Forwarded-For and X-Real-IP are passed ->', req.headers);
+    next();
+});
+
 app.get('/', (req, res) => {
+
+    const clientIp = requestIp.getClientIp(req);
+    console.log(`request-ip -> Your IP Address is ${clientIp}.`);
+
     const nodeVersion = process.version;
 
     res.send(`
