@@ -49,12 +49,12 @@ app.get('/', (req, res) => {
                 margin-top: 10px;
                 color: #6c757d;
             }
-
-            .version {
-                font-weight: 500;
-                background-color: #6c757d;
-                color: white;
-                padding: 4px 4px;
+        
+            .highlight {
+                font-size: 0.8em;
+                font-family: monospace;
+                background-color: #f0f0f0;
+                padding: 5px;
                 border-radius: 4px;
             }
         </style>
@@ -65,7 +65,7 @@ app.get('/', (req, res) => {
             <h1>${hostname} 🌐</h1>
             <p>Hello, I am your Docker container! 🐳</p>
             <p>Node.js Version: <span class="version">${nodeVersion}</span> 🚀</p>
-            <p>Commit: <span class="version">${short_sha}</span> #️⃣</p>
+            <p>Commit: <span class="highlight">${short_sha}</span> #️⃣</p>
         </div>
     </body>
 
